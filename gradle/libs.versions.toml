@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.2"
+agp = "8.8.0"
 androidTools = "31.9.1"
 core = "1.10.3"
 #noinspection PlaySdkIndexDeprecated,RiskyLibrary
@@ -44,8 +44,8 @@ annotation = "1.9.1"
 projectApplicationId = "com.plcoding.runique"
 projectVersionName = "1.0"
 projectMinSdkVersion = "25"
-projectTargetSdkVersion = "34"
-projectCompileSdkVersion = "34"
+projectTargetSdkVersion = "35"
+projectCompileSdkVersion = "35"
 projectVersionCode = "1"
 
 [libraries]
