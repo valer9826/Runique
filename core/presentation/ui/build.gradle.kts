@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.runique.android.library.compose)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
