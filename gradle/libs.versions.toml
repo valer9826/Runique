@@ -1,12 +1,11 @@
 [versions]
-agp = "8.8.0"
+agp = "8.9.1"
 androidTools = "31.9.1"
 core = "1.10.3"
 #noinspection PlaySdkIndexDeprecated,RiskyLibrary
 playCore = "1.10.3"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.6.0"
-composeCompiler = "1.5.9"
 desugar_jdk_libs = "2.1.5"
 kotlin = "2.1.10"
 coreKtx = "1.16.0"
@@ -117,6 +116,7 @@ room = { id = "androidx.room", version.ref = "room" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 runique-android-application = { id = "runique.android.application", version = "unspecified" }
 runique-android-application-compose = { id = "runique.android.application.compose", version = "unspecified" }
@@ -126,8 +126,6 @@ runique-android-feature-ui = { id = "runique.android.feature.ui", version = "uns
 runique-android-room = { id = "runique.android.room", version = "unspecified" }
 runique-jvm-library = { id = "runique.jvm.library", version = "unspecified" }
 runique-jvm-ktor = { id = "runique.jvm.ktor", version = "unspecified" }
-
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]
 compose = [
