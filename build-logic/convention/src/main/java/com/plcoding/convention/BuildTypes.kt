@@ -6,6 +6,7 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.Project
+import org.gradle.api.tasks.Exec
 import org.gradle.kotlin.dsl.configure
 
 internal fun Project.configureBuildTypes(
@@ -20,6 +21,9 @@ internal fun Project.configureBuildTypes(
         val apiKey = gradleLocalProperties(rootDir, rootProject.providers).getProperty("API_KEY")
         when (extensionType) {
             ExtensionType.APPLICATION -> {
+                registerAdbReverseTask()
+                hookAdbReverseIntoDebugInstalls()
+
                 extensions.configure<ApplicationExtension> {
                     buildTypes {
                         debug {
@@ -50,7 +54,7 @@ internal fun Project.configureBuildTypes(
 
 private fun BuildType.configureDebugBuildType(apiKey: String) {
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
-    buildConfigField("String", "BASE_URL", "\"https://runique.pl-coding.com:8080\"")
+    buildConfigField("String", "BASE_URL", "\"http://127.0.0.1:8080/\"")
 }
 
 private fun BuildType.configureReleaseBuildType(
@@ -65,4 +69,22 @@ private fun BuildType.configureReleaseBuildType(
         commonExtension.getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
     )
+}
+
+internal fun Project.registerAdbReverseTask() {
+    tasks.register("adbReverseRunique", Exec::class.java) {
+        group = "runique"
+        description = "Map device localhost:8080 to host localhost:8080 (adb reverse)"
+        commandLine("adb", "reverse", "tcp:8080", "tcp:8080")
+        isIgnoreExitValue = true
+    }
+}
+
+internal fun Project.hookAdbReverseIntoDebugInstalls() {
+    afterEvaluate {
+        tasks.matching { it.name.startsWith("install") && it.name.endsWith("Debug") }
+            .configureEach {
+                dependsOn("adbReverseRunique")
+            }
+    }
 }
